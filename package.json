@@ -1,12 +1,12 @@
 {
-  "name": "react-socket",
-  "version": "1.0.0",
+  "name": "react-io-client",
+  "version": "1.1.2",
   "description": "A simple socket.io-client hook for react in Typescript.",
   "main": "build/index.js",
   "scripts": {
     "test": "jest",
     "dev": "ts-node-dev --prefer-ts true --no-notify -r tsconfig-paths/register --watch src --respawn --transpile-only src/index.ts",
-    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && cd build && cp ../package*.json . && cp ../.gitignore . &&  cp ../LICENSE .&& cp ../README.md . && npm pkg delete scripts.dev && npm pkg delete scripts.start  && npm pkg delete scripts.build",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && cd build && cp ../package*.json . && cp ../.gitignore . &&  cp ../LICENSE .&& cp ../README.md . && npm pkg delete scripts.dev && npm pkg delete scripts.start  && npm pkg delete scripts.build && npm pkg set main='index.js'",
     "start": "node build/index.js"
   },
   "keywords": [
