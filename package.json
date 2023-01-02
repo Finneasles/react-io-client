@@ -2,11 +2,11 @@
   "name": "react-socket",
   "version": "1.0.0",
   "description": "A simple socket.io-client hook for react in Typescript.",
-  "main": "index.js",
+  "main": "build/index.js",
   "scripts": {
     "test": "jest",
     "dev": "ts-node-dev --prefer-ts true --no-notify -r tsconfig-paths/register --watch src --respawn --transpile-only src/index.ts",
-    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && cd build && cp ../package*.json . && cp ../.gitignore . && npm pkg delete scripts.dev && npm pkg delete scripts.start  && npm pkg delete scripts.build && cp -a ../node_modules .",
+    "build": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json && cd build && cp ../package*.json . && cp ../.gitignore . &&  cp ../LICENSE .&& cp ../README.md . && npm pkg delete scripts.dev && npm pkg delete scripts.start  && npm pkg delete scripts.build",
     "start": "node build/index.js"
   },
   "keywords": [
@@ -17,11 +17,13 @@
     "hooks"
   ],
   "author": "Finneas",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "socket.io-client": "^4.5.4"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.18.6",
