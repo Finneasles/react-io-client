@@ -1,6 +1,6 @@
 {
   "name": "react-io-client",
-  "version": "1.1.2",
+  "version": "1.1.4",
   "description": "A simple socket.io-client hook for react in Typescript.",
   "main": "build/index.js",
   "scripts": {
@@ -17,6 +17,10 @@
     "hooks"
   ],
   "author": "Finneas",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Finneasles/react-io-client.git"
+  },
   "license": "MIT",
   "dependencies": {
     "socket.io-client": "^4.5.4"
