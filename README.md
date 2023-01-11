@@ -1,4 +1,4 @@
-
+[![thumbnail](https://repository-images.githubusercontent.com/584224529/39430953-efa7-4b46-b0c7-f89491303b53)](https://i.imgur.com/Ob4qAwu.png)
 # react-io-client
 
 This is a custom hook for react applications that creates a connection to a websocket server using the [socket.io-client library](https://socket.io/docs/v4/client-api/). The hook takes in two parameters: a `url: string`, which is the address of the [websocket server](https://socket.io/docs/v4/server-instance/), and an optional `options: object`, which can contain additional options to pass to the io() function.
@@ -103,25 +103,24 @@ t's important to keep in mind that if the component that uses the `useSocket` ho
 
 ### Additional Information
 
-1.  You should make sure that the component that uses the hook is only mounted and unmounted when the component is meant to be active or inactive. If the component re-renders frequently, the hook will create and close the socket connection each time, which may lead to poor performance and unexpected behaviour.
-    
-2.  The hook does not automatically handle errors that occur during the websocket connection or handle cases where the websocket connection is closed by the server.  
+1. You should make sure that the component that uses the hook is only mounted and unmounted when the component is meant to be active or inactive. If the component re-renders frequently, the hook will create and close the socket connection each time, which may lead to poor performance and unexpected behaviour.
+
+2. The hook does not automatically handle errors that occur during the websocket connection or handle cases where the websocket connection is closed by the server.  
 > If you want to handle this case, you can add an event listener for the `"disconnect"` and `"error"` event on the socket instance using the `on` method, and handle them in your component accordingly.  
 
 The client API provides us with following built in events :
--   **Connect**  − When the client successfully connects.
--   **Connecting**  − When the client is in the process of connecting.
--   **Disconnect**  − When the client is disconnected.
--   **Connect_failed**  − When the connection to the server fails.
--   **Error**  − An error event is sent from the server.
--   **Message**  − When the server sends a message using the  **send**  function.
--   **Reconnect**  − When reconnection to the server is successful.
--   **Reconnecting**  − When the client is in the process of connecting.
--   **Reconnect_failed**  − When the reconnection attempt fails.
+- **"connect"**  − When the client successfully connects.
+- **"connecting"**  − When the client is in the process of connecting.
+- **"disconnect"**  − When the client is disconnected.
+- **"connect_failed"**  − When the connection to the server fails.
+- **"error"**  − An error event is sent from the server.
+- **"message"**  − When the server sends a message using the  **send**  function.
+- **"reconnect"**  − When reconnection to the server is successful.
+- **"reconnecting"**  − When the client is in the process of connecting.
+- **"reconnect_failed"**  − When the reconnection attempt fails.
 
 For example, you can handle errors and disconnect this way : 
 ```js 
-
 useEffect(() => {
  if (!socket) return;
  socket.on("error", (error)=>{
@@ -132,5 +131,6 @@ socket.on("disconnect", ()=>{
  console.log("Disconnected from server");
 });
   }, [socket]);
-  
 ```
+
+3. If the code is using this hook and it's in a functional component, it should be wrapped inside a useEffect and if not , it will cause a memory leak.
