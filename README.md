@@ -1,5 +1,6 @@
-[![thumbnail](https://repository-images.githubusercontent.com/584224529/39430953-efa7-4b46-b0c7-f89491303b53)](https://i.imgur.com/Ob4qAwu.png)
 # react-io-client
+
+[![thumbnail](https://repository-images.githubusercontent.com/584224529/39430953-efa7-4b46-b0c7-f89491303b53)](https://i.imgur.com/Ob4qAwu.png)
 
 This is a custom hook for react applications that creates a connection to a websocket server using the [socket.io-client library](https://socket.io/docs/v4/client-api/). The hook takes in two parameters: a `url: string`, which is the address of the [websocket server](https://socket.io/docs/v4/server-instance/), and an optional `options: object`, which can contain additional options to pass to the io() function.
 
@@ -9,23 +10,24 @@ The hook exports the [Socket type](https://socket.io/docs/v4/typescript/#types-f
 
 > Note: The socket connection does not come with any event handlers. Those should be added and managed by the component that use this hook. [More information](#additional-information).
 
-
 ## Getting Started
 
 Install dependency:
+
 ```bash
 npm i react-socket
 ```
 
-### Example:
+### Example
 
 Here's an example of how to use the useSocket hook in a React component:
+
 ```js
 import { useSocket } from  "react-socket";
 import  React, { useEffect, useState } from  "react";
 
 export  default  function  Chat() {
-const [socket] = useSocket("ws://localhost:3000", { autoConect:  false });
+const [socket] = useSocket("ws://localhost:3000", { autoConnect:  false });
 const [messages, setMessages] = useState([]);
 
 useEffect(() => {
@@ -45,6 +47,7 @@ return  <div  key={index}>{message}</div>;
 });
 }
 ```
+
 > `useEffect` hook is used in this example to handle the side effect of creating a socket connection, but if you're already using useEffect in your component, you can use that one to handle the side effect of managing the websocket as well.
 
 In this example, the Chat component is using the useSocket hook to create a websocket connection to the server at `ws://localhost:3000`. The hook returns an array containing the socket instance. The component uses the [useEffect hook](https://reactjs.org/docs/hooks-effect.html) to listen for incoming "message" events on the socket, and adds them to the component's state.
@@ -52,6 +55,7 @@ In this example, the Chat component is using the useSocket hook to create a webs
 When the component is unmounted or the socket connection is re-established, the [useEffect callback](https://reactjs.org/docs/hooks-effect.html#effects-with-cleanup) will be called and it removes the "message" event handler, and emit the "leave" event to the server to leave the chat room.
 
 The types for the useSocket function are as follows:
+
 ```js
 interface  SocketOptions {
 // options specific to the "socket.io-client" library
@@ -76,6 +80,10 @@ When you create a socket connection, you can listen to events that are emitted f
 For example, in the above example code I provided, the Chat component is using the `useEffect` hook to listen to the "message" event, and adding the messages to the component's state.
 
 ```js
+import React, { useState } from  "react";
+
+const [messages, setMessages] = useState([]);
+
 useEffect(() => {
     if (!socket) return;
     socket.on("message", (message) => {
@@ -103,24 +111,26 @@ t's important to keep in mind that if the component that uses the `useSocket` ho
 
 ### Additional Information
 
-1. You should make sure that the component that uses the hook is only mounted and unmounted when the component is meant to be active or inactive. If the component re-renders frequently, the hook will create and close the socket connection each time, which may lead to poor performance and unexpected behaviour.
+* You should make sure that the component that uses the hook is only mounted and unmounted when the component is meant to be active or inactive. If the component re-renders frequently, the hook will create and close the socket connection each time, which may lead to poor performance and unexpected behaviors.
 
-2. The hook does not automatically handle errors that occur during the websocket connection or handle cases where the websocket connection is closed by the server.  
+* The hook does not automatically handle errors that occur during the websocket connection or handle cases where the websocket connection is closed by the server.  
+
 > If you want to handle this case, you can add an event listener for the `"disconnect"` and `"error"` event on the socket instance using the `on` method, and handle them in your component accordingly.  
 
 The client API provides us with following built in events :
-- **"connect"**  − When the client successfully connects.
-- **"connecting"**  − When the client is in the process of connecting.
-- **"disconnect"**  − When the client is disconnected.
-- **"connect_failed"**  − When the connection to the server fails.
-- **"error"**  − An error event is sent from the server.
-- **"message"**  − When the server sends a message using the  **send**  function.
-- **"reconnect"**  − When reconnection to the server is successful.
-- **"reconnecting"**  − When the client is in the process of connecting.
-- **"reconnect_failed"**  − When the reconnection attempt fails.
 
-For example, you can handle errors and disconnect this way : 
-```js 
+* **"connect"**  − When the client successfully connects.
+* **"connecting"**  − When the client is in the process of connecting.
+* **"disconnect"**  − When the client is disconnected.
+* **"connect_failed"**  − When the connection to the server fails.
+* **"error"**  − An error event is sent from the server.
+* **"message"**  − When the server sends a message using the  **send**  function.
+* **"reconnect"**  − When reconnection to the server is successful.
+* **"reconnecting"**  − When the client is in the process of connecting.
+* **"reconnect_failed"**  − When the reconnection attempt fails.
+For example, you can handle errors and disconnect this way :
+
+```js
 useEffect(() => {
  if (!socket) return;
  socket.on("error", (error)=>{
@@ -133,4 +143,4 @@ socket.on("disconnect", ()=>{
   }, [socket]);
 ```
 
-3. If the code is using this hook and it's in a functional component, it should be wrapped inside a useEffect and if not , it will cause a memory leak.
+* If the code is using this hook and it's in a functional component, it should be wrapped inside a useEffect and if not , it will cause a memory leak.
