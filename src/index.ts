@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import io, { SocketOptions } from "socket.io-client";
+export { Socket } from "socket.io-client";
 
 export const useSocket = (url: string, options?: SocketOptions & any) => {
   const socket = useRef(io(url, options)).current;
@@ -11,5 +12,6 @@ export const useSocket = (url: string, options?: SocketOptions & any) => {
   );
   return [socket];
 };
+
 
 export default useSocket;
