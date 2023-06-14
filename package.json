@@ -1,7 +1,7 @@
 {
   "name": "react-io-client",
-  "version": "1.1.9",
-  "description": "A simple socket.io-client hook for react in Typescript.",
+  "version": "1.2.0",
+  "description": "A socket.io-client hook for react in Typescript.",
   "main": "build/index.js",
   "scripts": {
     "test": "jest",
@@ -10,6 +10,7 @@
     "start": "node build/index.js",
     "publish": "cd build && npm publish"
   },
+  "homepage": "https://f1n.dev/react-io-client/",
   "keywords": [
     "socket.io",
     "socket.io-client",
@@ -17,7 +18,7 @@
     "react",
     "hooks"
   ],
-  "author": "Finneas",
+  "author": "F1N.DEV",
   "repository": {
     "type": "git",
     "url": "https://github.com/Finneasles/react-io-client.git"
