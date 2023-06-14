@@ -1,6 +1,6 @@
 {
   "name": "react-io-client",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "description": "A socket.io-client hook for react in Typescript.",
   "main": "build/index.js",
   "scripts": {
