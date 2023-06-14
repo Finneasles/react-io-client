@@ -1,74 +1,49 @@
+# react-io-client
+
+[![thumbnail](https://repository-images.githubusercontent.com/584224529/39430953-efa7-4b46-b0c7-f89491303b53)](https://i.imgur.com/Ob4qAwu.png)
+
+> Note: The socket connection does not come with any event handlers. Those should be added and managed by the component that use this hook. [More information](https://f1n.dev/react-io-client/).
+
 ## Getting Started
 
 Install dependency:
 
 ```bash
-npm i react-socket
+npm i react-io-client
 ```
 
-use the useSocket hook to get the socket connection:
+### Example
 
-```javascript
-import { useSocket } from "react-socket";
+Here's an example of how to use the useSocket hook in a React component:
 
-const [socket] = useSocket(SOCKET_SERVER_URL, {
-    // access query on socket.handshake.query on server
-    query: { "someKey": "someValue"},
-    autoConnect: false,
-    reconnection: false,
-    auth: (cb: ({}) => void) => {
-      cb({
-        // access token on socket.handshake.auth on server
-        token: "token",
-      });
-    },
-  });
-  
-  ```
+```js
+import { useSocket } from  "react-io-client";
+import  React, { useEffect, useState } from  "react";
 
-# Example : 
-```javascript
-import type { AppProps } from "next/app";
-import { useSocket } from "react-socket";
-import App from "next/app";
+export  default  function  Chat() {
+const [socket] = useSocket("ws://localhost:3000", { autoConnect:  false });
+const [messages, setMessages] = useState([]);
 
-const SOCKET_SERVER_URL = "ws://localhost:4000";
+useEffect(() => {
+if (!socket) return;
+socket.on("message", (message: string) => {
+setMessages((prevMessages) => [...prevMessages, message]);
+});
+socket.emit("join", "room1");
+return () => {
+socket.off("message");
+socket.emit("leave", "room1");
+};
+}, [socket]);
 
-function MyApp({ Component, pageProps }: AppProps) {
-
-const [socket] = useSocket(SOCKET_SERVER_URL, {
-    // access query on socket.handshake.query on server
-    query: { "someKey": "someValue"},
-    autoConnect: false,
-    reconnection: false,
-    auth: (cb: ({}) => void) => {
-      cb({
-        // access token on socket.handshake.auth on server
-        token: "token",
-      });
-    },
-  });
-
-    useEffect(()=>{
-        socket.connect();
-        if(socket.connected){
-            consle.log("Socket connected." ,socket)
-        }else{
-            consle.log("Failed to connect." ,socket.error)
-        }
-
-    },[]);
-
-  return <Component {...pageProps} />;
+return messages.map((message, index) => {
+return <div  key={index}>{message}</div>;
+});
 }
-
-export default MyApp;
-
 ```
 
-# Types 
+## Learn More
 
-useSocket input types: 
-```javascript
-const useSocket = (url: string, options?: SocketOptions & any) => {...});
-```
+* The hook must be wrapped in a useEffect to avoid memory leaks.
+
+You can learn more in the [Documentation](https://f1n.dev/react-io-client).
